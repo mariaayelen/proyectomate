@@ -1,0 +1,231 @@
+.drinks-animation {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(130px, 1fr) 55px minmax(130px, 1fr);
+  align-items: center;
+  justify-content: center;
+  width: min(620px, 100%);
+  min-height: 360px;
+  margin-inline: auto;
+  padding: 2rem 1rem;
+  overflow: hidden;
+}
+
+.animated-drink {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  min-width: 0;
+  align-items: center;
+  justify-content: center;
+}
+
+.animated-drink__image {
+  position: relative;
+  z-index: 2;
+  width: clamp(150px, 22vw, 235px);
+  height: clamp(150px, 22vw, 235px);
+}
+
+.drink-halo {
+  position: absolute;
+  z-index: 0;
+  width: 78%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  filter: blur(1px);
+}
+
+.drink-halo--mate {
+  background:
+    radial-gradient(
+      circle,
+      rgba(237, 199, 92, 0.42),
+      rgba(237, 199, 92, 0.08) 70%,
+      transparent 72%
+    );
+}
+
+.drink-halo--terere {
+  background:
+    radial-gradient(
+      circle,
+      rgba(128, 189, 213, 0.38),
+      rgba(128, 189, 213, 0.08) 70%,
+      transparent 72%
+    );
+}
+
+/* Vapor del mate */
+
+.steam {
+  position: absolute;
+  z-index: 3;
+  bottom: 67%;
+  width: 12px;
+  height: 55px;
+  border-left: 4px solid rgba(134, 86, 47, 0.4);
+  border-radius: 50%;
+  opacity: 0;
+  animation: mate-steam 3s infinite ease-out;
+}
+
+.steam--one {
+  left: 43%;
+}
+
+.steam--two {
+  left: 50%;
+  animation-delay: 0.8s;
+}
+
+.steam--three {
+  left: 57%;
+  animation-delay: 1.6s;
+}
+
+@keyframes mate-steam {
+  0% {
+    opacity: 0;
+    transform: translateY(10px) translateX(0) scale(0.7);
+  }
+
+  35% {
+    opacity: 0.65;
+  }
+
+  100% {
+    opacity: 0;
+    transform: translateY(-45px) translateX(12px) scale(1.15);
+  }
+}
+
+/* Tereré armado con guampa, bombilla y hielo */
+
+.terere-composition {
+  position: relative;
+  z-index: 2;
+  width: clamp(150px, 22vw, 225px);
+  height: clamp(150px, 22vw, 225px);
+}
+
+.terere-composition__guampa {
+  position: absolute;
+  left: 23%;
+  bottom: 5%;
+  width: 58%;
+  height: 72%;
+}
+
+.terere-composition__bombilla {
+  position: absolute;
+  z-index: 3;
+  top: 2%;
+  left: 49%;
+  width: 18%;
+  height: 69%;
+  transform-origin: bottom center;
+}
+
+.terere-composition__ice {
+  position: absolute;
+  z-index: 4;
+  top: 26%;
+  left: 36%;
+  width: 34%;
+  height: 30%;
+  pointer-events: none;
+}
+
+.cold-spark {
+  position: absolute;
+  z-index: 4;
+  color: #4b9fbd;
+  font-size: 1.6rem;
+  text-shadow: 0 0 8px rgba(128, 189, 213, 0.8);
+}
+
+.cold-spark--one {
+  top: 18%;
+  right: 16%;
+}
+
+.cold-spark--two {
+  bottom: 22%;
+  left: 14%;
+}
+
+/* Corazón */
+
+.drinks-animation__heart {
+  position: relative;
+  z-index: 4;
+  color: var(--coral);
+  font-size: clamp(2rem, 5vw, 3.2rem);
+  text-shadow:
+    0 3px 0 var(--green-dark),
+    0 5px 10px rgba(36, 69, 30, 0.15);
+}
+
+/* Hojas */
+
+.drinks-animation__leaf {
+  position: absolute;
+  z-index: 1;
+  width: 65px;
+  height: 65px;
+  opacity: 0.7;
+}
+
+.drinks-animation__leaf--left {
+  left: 2%;
+  bottom: 8%;
+}
+
+.drinks-animation__leaf--right {
+  top: 7%;
+  right: 2%;
+}
+
+@media (max-width: 640px) {
+  .drinks-animation {
+    grid-template-columns: 1fr 34px 1fr;
+    min-height: 260px;
+    padding: 1.2rem 0.2rem;
+  }
+
+  .animated-drink__image,
+  .terere-composition {
+    width: 145px;
+    height: 145px;
+  }
+
+  .drinks-animation__leaf {
+    width: 42px;
+    height: 42px;
+  }
+
+  .cold-spark {
+    font-size: 1.1rem;
+  }
+}
+
+@media (max-width: 430px) {
+  .drinks-animation {
+    grid-template-columns: 1fr 24px 1fr;
+    min-height: 220px;
+  }
+
+  .animated-drink__image,
+  .terere-composition {
+    width: 115px;
+    height: 115px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .steam {
+    animation: none;
+    opacity: 0.35;
+  }
+}
