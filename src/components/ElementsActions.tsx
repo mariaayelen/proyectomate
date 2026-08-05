@@ -223,31 +223,6 @@ export function ElementsActions() {
           subtitle="Conocé los utensilios, las acciones y los pasos que seguimos para preparar mate o tereré."
         />
 
-        <div
-          className="elements__tabs"
-          role="tablist"
-          aria-label="Elegí una preparación"
-        >
-          {preparationSequences.map((item) => (
-            <button
-              key={item.mode}
-              type="button"
-              role="tab"
-              id={`tab-${item.mode}`}
-              aria-selected={mode === item.mode}
-              aria-controls={`panel-${item.mode}`}
-              className={`chip ${
-                mode === item.mode
-                  ? 'chip--active'
-                  : ''
-              }`}
-              onClick={() => setMode(item.mode)}
-            >
-              {item.title}
-            </button>
-          ))}
-        </div>
-
         <div className="elements__layout">
           {/* COLUMNA 1: ELEMENTOS Y ACCIONES */}
 
@@ -346,9 +321,38 @@ export function ElementsActions() {
           {/* COLUMNA 2: PREPARACIÓN */}
 
           <div className="elements__column elements__column--steps">
-            <h3 className="elements__column-title">
-              {sequence.title}
+            <h3 className="elements__column-title elements__column-title--preparation">
+              Preparación
             </h3>
+
+            <div
+              className="elements__tabs"
+              role="tablist"
+              aria-label="Elegí una preparación"
+            >
+              {preparationSequences.map((item) => (
+                <button
+                  key={item.mode}
+                  type="button"
+                  role="tab"
+                  id={`tab-${item.mode}`}
+                  aria-selected={mode === item.mode}
+                  aria-controls={`panel-${item.mode}`}
+                  className={`chip ${
+                    mode === item.mode
+                      ? 'chip--active'
+                      : ''
+                  }`}
+                  onClick={() => setMode(item.mode)}
+                >
+                  {item.title}
+                </button>
+              ))}
+            </div>
+
+            <h4 className="elements__sequence-title">
+              {sequence.title}
+            </h4>
 
             <AnimatePresence mode="wait">
               <motion.ol

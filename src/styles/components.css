@@ -2136,3 +2136,653 @@
     height: 46px;
   }
 }
+
+/* Ajustes base de la preparación: los botones quedan dentro del bloque
+   y justo encima de los pasos correspondientes. */
+
+.elements__column--steps .elements__tabs {
+  margin-bottom: 1rem;
+}
+
+.elements__sequence-title {
+  margin-bottom: 0.7rem;
+  font-family: var(--font-subtitle);
+  font-size: 1.15rem;
+  text-align: center;
+}
+
+/* ============================================================
+   AJUSTES RESPONSIVE COMPACTOS — CELULARES
+   Mantienen el diseño de escritorio y reducen el desplazamiento
+   vertical en las secciones más extensas.
+   ============================================================ */
+
+@media (max-width: 640px) {
+  #navegacion,
+  .flavors,
+  .elements,
+  .games {
+    padding-block: 2.75rem;
+  }
+
+  #navegacion .section-head,
+  .flavors .section-head,
+  .elements .section-head,
+  .games .section-head {
+    margin-bottom: 1.45rem;
+  }
+
+  #navegacion .section-head .kicker,
+  .flavors .section-head .kicker,
+  .elements .section-head .kicker,
+  .games .section-head .kicker {
+    margin-bottom: 0.65rem;
+    padding: 0.2rem 0.65rem;
+    font-size: 0.68rem;
+  }
+
+  #navegacion .section-title-ribbon,
+  .flavors .section-title-ribbon,
+  .elements .section-title-ribbon,
+  .games .section-title-ribbon {
+    padding: 0.22em 0.8em 0.3em;
+    font-size: 1.55rem;
+  }
+
+  #navegacion .section-head p,
+  .flavors .section-head p,
+  .elements .section-head p,
+  .games .section-head p {
+    margin-bottom: 0;
+    font-size: 0.87rem;
+    line-height: 1.4;
+  }
+
+  /* Navegación: botones finos con el ícono al costado. */
+
+  .nav-grid {
+    grid-template-columns: 1fr;
+    gap: 0.58rem;
+  }
+
+  .nav-card,
+  .nav-card:nth-child(4),
+  .nav-card:nth-child(5) {
+    display: grid;
+    min-height: 0;
+    grid-column: auto;
+    grid-template-columns: 46px minmax(0, 1fr) 22px;
+    align-items: center;
+    gap: 0.7rem;
+    padding: 0.62rem 0.72rem;
+    border-width: 2px;
+    border-radius: 16px;
+    text-align: left;
+  }
+
+  .nav-card:hover,
+  .nav-card:focus-visible {
+    transform: translateY(-2px);
+  }
+
+  .nav-card__icon {
+    width: 46px;
+    height: 46px;
+    flex-basis: 46px;
+    margin: 0;
+    border-width: 1.5px;
+    box-shadow: none;
+  }
+
+  .nav-card__icon svg {
+    width: 25px;
+    height: 25px;
+  }
+
+  .nav-card h3 {
+    margin: 0;
+    font-size: 0.93rem;
+    line-height: 1.18;
+  }
+
+  .nav-card p {
+    display: none;
+  }
+
+  .nav-card__go {
+    position: static;
+    align-self: center;
+    color: var(--terracotta);
+    font-size: 1.2rem;
+    text-align: center;
+  }
+
+  /* Glosario: dos tarjetas giratorias por fila. */
+
+  .flavors__controls {
+    gap: 0.65rem;
+    margin-bottom: 0.55rem;
+  }
+
+  .flavors__filters {
+    width: 100%;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    gap: 0.45rem;
+    overflow-x: auto;
+    padding: 0.1rem 0.05rem 0.45rem;
+    scrollbar-width: thin;
+  }
+
+  .flavors__filters .chip {
+    min-height: 32px;
+    flex: 0 0 auto;
+    padding: 0.24rem 0.62rem;
+    font-size: 0.74rem;
+  }
+
+  .flavors__controls .searchbox {
+    max-width: none;
+    border-width: 2px;
+    padding-left: 0.8rem;
+  }
+
+  .flavors__controls .searchbox input {
+    font-size: 0.83rem;
+  }
+
+  .flavors__count {
+    margin-bottom: 0.8rem;
+    font-size: 0.78rem;
+  }
+
+  .flavors__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.62rem;
+  }
+
+  .flavor-flip-wrap {
+    height: 190px;
+  }
+
+  .flavor-flip,
+  .flavor-flip__face {
+    border-radius: 15px;
+  }
+
+  .flavor-flip__face {
+    padding: 1.95rem 0.4rem 0.58rem;
+    border-width: 2px;
+  }
+
+  .flavor-flip__face--back {
+    justify-content: center;
+    padding: 0.55rem 0.38rem;
+  }
+
+  .flavor-flip__face .badge {
+    top: 7px;
+    left: 7px;
+    max-width: calc(100% - 14px);
+    padding: 0.12rem 0.38rem;
+    overflow: hidden;
+    font-size: 0.5rem;
+    letter-spacing: 0.02em;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .flavor-flip__art {
+    width: 82px;
+    height: 82px;
+    margin-bottom: 0.18rem;
+  }
+
+  .flavor-flip__back-art {
+    width: 32px;
+    height: 32px;
+    margin-bottom: 0.15rem;
+  }
+
+  .flavor-flip__name {
+    font-size: 0.94rem;
+  }
+
+  .flavor-flip__definition {
+    max-width: 100%;
+    margin-top: 0.32rem;
+    overflow: hidden;
+    font-size: 0.65rem;
+    line-height: 1.22;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 5;
+  }
+
+  .flavor-flip__hint {
+    margin-top: 0.25rem;
+    font-size: 0.57rem;
+  }
+
+  .flavor-flip__hint--back {
+    margin-top: 0.35rem;
+  }
+
+  .flavors__download {
+    gap: 0.85rem;
+    margin-top: 1.35rem;
+    padding: 1rem 0.85rem;
+  }
+
+  .flavors__download-text h3 {
+    font-size: 1.05rem;
+  }
+
+  .flavors__download-text p {
+    font-size: 0.8rem;
+    line-height: 1.35;
+  }
+
+  .flavors__download-button {
+    min-height: 40px;
+    padding: 0.48rem 0.85rem;
+    font-size: 0.86rem;
+  }
+
+  .flavors__divider {
+    margin-top: 1.65rem;
+  }
+
+  /* Elementos, acciones y pasos. */
+
+  .elements__layout {
+    gap: 1rem;
+  }
+
+  .elements__column {
+    padding: 0.85rem;
+    border-width: 2px;
+    border-radius: 18px;
+  }
+
+  .elements__column-title {
+    margin-bottom: 0.7rem;
+    font-size: 1.2rem;
+  }
+
+  .elements__column-title[style] {
+    margin-top: 1.15rem !important;
+  }
+
+  .elements__items,
+  .elements__items--actions {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.45rem;
+  }
+
+  .elements__item,
+  .elements__item:not(.elements__item--action),
+  .elements__item--action {
+    min-height: 88px;
+    flex-direction: column;
+    justify-content: center;
+    gap: 0.2rem;
+    padding: 0.45rem 0.25rem;
+    border-width: 1.5px;
+    border-radius: 12px;
+    text-align: center;
+  }
+
+  .elements__item-art,
+  .elements__item--action .elements__item-art {
+    width: 46px;
+    height: 46px;
+    flex: 0 0 46px;
+  }
+
+  .elements__item strong,
+  .elements__item-text strong {
+    font-size: 0.72rem;
+    line-height: 1.15;
+  }
+
+  .elements__item-text {
+    align-items: center;
+  }
+
+  .elements__item-text small {
+    display: none;
+  }
+
+  .elements__column-title--preparation {
+    margin-bottom: 0.55rem;
+  }
+
+  .elements__tabs {
+    display: grid;
+    width: 100%;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.45rem;
+    margin-bottom: 0.8rem;
+    overflow: visible;
+    padding: 0;
+  }
+
+  .elements__tabs .chip {
+    width: 100%;
+    min-height: 38px;
+    justify-content: center;
+    padding: 0.32rem 0.38rem;
+    font-size: 0.72rem;
+    line-height: 1.15;
+    text-align: center;
+  }
+
+  .elements__sequence-title {
+    margin-bottom: 0.45rem;
+    font-family: var(--font-subtitle);
+    font-size: 1rem;
+    text-align: center;
+  }
+
+  .elements__steps {
+    padding: 0.15rem 0 0.15rem 0.55rem;
+  }
+
+  .elements__steps::before {
+    top: 15px;
+    bottom: 15px;
+    left: 18px;
+    border-left-width: 2px;
+  }
+
+  .elements__step {
+    gap: 0.48rem;
+    padding: 0.42rem 0;
+  }
+
+  .elements__step-num {
+    width: 27px;
+    height: 27px;
+    border-width: 2px;
+    font-size: 0.72rem;
+  }
+
+  .elements__step-art {
+    width: 36px;
+    height: 36px;
+  }
+
+  .elements__step-body strong {
+    font-size: 0.82rem;
+    line-height: 1.2;
+  }
+
+  .elements__step-body small {
+    font-size: 0.72rem;
+    line-height: 1.3;
+  }
+
+  .elements__sprig {
+    width: 64px;
+    margin-top: 1.2rem;
+  }
+
+  /* Juegos compactos, sin desbordes laterales. */
+
+  .games__grid {
+    gap: 1rem;
+  }
+
+  .games__panel,
+  .game,
+  .game__card {
+    min-width: 0;
+    max-width: 100%;
+  }
+
+  .games__panel {
+    overflow: hidden;
+    padding: 0.78rem;
+    border-width: 2px;
+    border-radius: 18px;
+    outline-offset: 3px;
+  }
+
+  .games__panel-head {
+    gap: 0.55rem;
+    margin-bottom: 0.7rem;
+  }
+
+  .games__panel-head > svg {
+    width: 32px;
+    height: 32px;
+  }
+
+  .games__panel-head h3 {
+    margin-bottom: 0.08rem;
+    font-size: 1.05rem;
+  }
+
+  .games__panel-head p {
+    font-size: 0.75rem;
+    line-height: 1.25;
+  }
+
+  .game {
+    gap: 0.58rem;
+  }
+
+  .game__progress {
+    flex-direction: row;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.73rem;
+  }
+
+  .game__bar {
+    height: 9px;
+    border-width: 1.5px;
+  }
+
+  .game__card {
+    padding: 0.68rem;
+    border-width: 2px;
+    border-radius: 15px;
+  }
+
+  .game__card-art {
+    width: 72px;
+    height: 72px;
+    margin-bottom: 0.1rem;
+  }
+
+  .game__prompt {
+    margin-bottom: 0.15rem;
+    font-size: 0.72rem;
+    line-height: 1.25;
+  }
+
+  .game__word {
+    margin-bottom: 0.55rem;
+    font-size: 1.3rem;
+  }
+
+  .game__options {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.35rem;
+  }
+
+  .games__panel .btn,
+  .game__option,
+  .order-actions .btn {
+    min-width: 0;
+    min-height: 36px;
+    padding: 0.35rem 0.35rem;
+    border-width: 2px;
+    font-size: 0.68rem;
+    line-height: 1.1;
+    box-shadow: 0 3px 0 var(--green-dark);
+    white-space: normal;
+  }
+
+  .game__feedback,
+  .order-feedback {
+    padding: 0.6rem 0.65rem;
+    border-width: 2px;
+    font-size: 0.75rem;
+    line-height: 1.3;
+  }
+
+  .game__next {
+    width: 100%;
+    margin-top: 0.15rem;
+  }
+
+  .game-result {
+    padding: 1rem 0.7rem;
+  }
+
+  .game-result__hearts {
+    margin-bottom: 0.35rem;
+  }
+
+  .game-result__score {
+    font-size: 0.88rem;
+  }
+
+  .game--order .game__modes {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.4rem;
+  }
+
+  .game--order .game__modes .chip {
+    min-width: 0;
+    justify-content: center;
+    padding: 0.25rem 0.4rem;
+    font-size: 0.72rem;
+  }
+
+  .game__hint {
+    margin-bottom: 0.1rem;
+    font-size: 0.72rem;
+    line-height: 1.3;
+  }
+
+  .order-steps {
+    gap: 0.38rem;
+  }
+
+  .order-step {
+    display: grid;
+    grid-template-columns: 26px 32px minmax(0, 1fr) 28px;
+    gap: 0.38rem;
+    padding: 0.38rem;
+    border-width: 2px;
+    border-radius: 11px;
+  }
+
+  .order-step__grip {
+    display: none;
+  }
+
+  .order-step__num {
+    width: 25px;
+    height: 25px;
+    border-width: 2px;
+    font-size: 0.7rem;
+  }
+
+  .order-step__art {
+    display: block;
+    width: 31px;
+    height: 31px;
+  }
+
+  .order-step__text {
+    font-size: 0.73rem;
+    line-height: 1.2;
+  }
+
+  .order-step__actions {
+    gap: 0.2rem;
+  }
+
+  .order-step__btn {
+    width: 27px;
+    height: 27px;
+    border-width: 1.5px;
+    border-radius: 7px;
+    box-shadow: 0 1px 0 var(--green-dark);
+  }
+
+  .order-step__btn svg {
+    width: 15px;
+    height: 15px;
+  }
+
+  .order-actions {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.45rem;
+  }
+
+  .order-restart {
+    font-size: 0.75rem;
+  }
+}
+
+@media (max-width: 360px) {
+  .nav-card {
+    grid-template-columns: 42px minmax(0, 1fr) 18px;
+    padding-inline: 0.58rem;
+  }
+
+  .nav-card__icon {
+    width: 42px;
+    height: 42px;
+    flex-basis: 42px;
+  }
+
+  .nav-card h3 {
+    font-size: 0.85rem;
+  }
+
+  .flavors__grid {
+    gap: 0.48rem;
+  }
+
+  .flavor-flip-wrap {
+    height: 184px;
+  }
+
+  .flavor-flip__art {
+    width: 74px;
+    height: 74px;
+  }
+
+  .elements__items,
+  .elements__items--actions {
+    gap: 0.35rem;
+  }
+
+  .elements__item,
+  .elements__item:not(.elements__item--action),
+  .elements__item--action {
+    min-height: 82px;
+  }
+
+  .elements__item-art,
+  .elements__item--action .elements__item-art {
+    width: 40px;
+    height: 40px;
+    flex-basis: 40px;
+  }
+
+  .order-step {
+    grid-template-columns: 24px 28px minmax(0, 1fr) 26px;
+  }
+}
+

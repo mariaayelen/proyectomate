@@ -73,9 +73,7 @@ export function OrderGame() {
       </div>
 
       <p className="game__hint">
-        Ordená los pasos de la manera correcta. En computadora podés arrastrar las tarjetas y en
-        cualquier dispositivo usar los botones ↑ ↓. También podés tocar una tarjeta para
-        seleccionarla.
+        Ordená los pasos. Podés arrastrarlos o usar los botones ↑ ↓.
       </p>
 
       <AnimatePresence mode="wait">
