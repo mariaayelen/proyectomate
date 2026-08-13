@@ -24,45 +24,56 @@ import {
 } from 'recharts'
 import { QRCodeSVG } from 'qrcode.react'
 import { ExternalLink } from 'lucide-react'
-import { surveyData } from '../data/surveyData'
+import {
+  surveyData,
+  type SurveyDatum,
+} from '../data/surveyData'
 import { siteConfig } from '../data/siteConfig'
 import { SectionTitle } from './SectionTitle'
 import { Heart } from './illustrations/DecorativeLeaves'
 
 const COLORS = {
   consumption: [
-    '#8ac43f',
     '#3f91c9',
-    '#9a63b2',
+    '#ef5b3f',
+    '#f7941d',
   ],
 
   herbs: [
-    '#ef5b88',
+    '#6f8f2f',
     '#9a63b2',
   ],
 
   sharing: [
+    '#3f91c9',
+    '#ef5b3f',
     '#f7941d',
-    '#3aa39c',
-    '#f7c52b',
+    '#9a63b2',
+    '#3c9148',
   ],
 
   age: [
-    '#8ac43f',
-    '#ef5b88',
     '#3f91c9',
+    '#ef5b3f',
     '#f7941d',
+    '#3c9148',
+    '#9a63b2',
   ],
 }
 
 interface TooltipPayloadItem {
   name?: string
-  value?: number
+  value?: number | string
   color?: string
-  payload?: {
-    name?: string
-    value?: number
-  }
+  payload?: SurveyDatum
+}
+
+function formatPercentage(value: number) {
+  return value.toLocaleString('es-AR', {
+    minimumFractionDigits:
+      Number.isInteger(value) ? 0 : 1,
+    maximumFractionDigits: 1,
+  })
 }
 
 function Counter({
@@ -119,11 +130,9 @@ function Counter({
 function ResultsTooltip({
   active,
   payload,
-  total,
 }: {
   active?: boolean
   payload?: TooltipPayloadItem[]
-  total: number
 }) {
   if (
     !active ||
@@ -135,21 +144,20 @@ function ResultsTooltip({
 
   const result = payload[0]
 
+  const datum = result.payload
+
   const name =
-    result.payload?.name ??
+    datum?.name ??
     result.name ??
     ''
 
-  const value = Number(
-    result.value ?? 0,
+  const percentage = Number(
+    datum?.value ??
+      result.value ??
+      0,
   )
 
-  const percentage =
-    total > 0
-      ? Math.round(
-          (value / total) * 100,
-        )
-      : 0
+  const count = datum?.count
 
   return (
     <div
@@ -168,11 +176,20 @@ function ResultsTooltip({
         <strong>{name}</strong>
 
         <span>
-          {value}{' '}
-          {value === 1
-            ? 'persona'
-            : 'personas'}{' '}
-          · {percentage}%
+          {count !== undefined && (
+            <>
+              {count}{' '}
+              {count === 1
+                ? 'persona'
+                : 'personas'}{' '}
+              ·{' '}
+            </>
+          )}
+
+          {formatPercentage(
+            percentage,
+          )}
+          %
         </span>
       </span>
     </div>
@@ -211,18 +228,9 @@ function DonutChart({
   data,
   colors,
 }: {
-  data: {
-    name: string
-    value: number
-  }[]
+  data: SurveyDatum[]
   colors: string[]
 }) {
-  const total = data.reduce(
-    (accumulator, item) =>
-      accumulator + item.value,
-    0,
-  )
-
   return (
     <div className="chart-box">
       <ResponsiveContainer
@@ -257,9 +265,7 @@ function DonutChart({
 
           <Tooltip
             content={
-              <ResultsTooltip
-                total={total}
-              />
+              <ResultsTooltip />
             }
           />
         </PieChart>
@@ -267,38 +273,40 @@ function DonutChart({
 
       <ul className="chart-legend">
         {data.map(
-          (item, index) => {
-            const percentage =
-              Math.round(
-                (item.value / total) *
-                  100,
-              )
+          (item, index) => (
+            <li key={item.name}>
+              <span
+                className="chart-legend__dot"
+                style={{
+                  background:
+                    colors[
+                      index %
+                        colors.length
+                    ],
+                }}
+              />
 
-            return (
-              <li key={item.name}>
-                <span
-                  className="chart-legend__dot"
-                  style={{
-                    background:
-                      colors[
-                        index %
-                          colors.length
-                      ],
-                  }}
-                />
+              {item.name} —{' '}
 
-                {item.name} —{' '}
+              <strong>
+                {item.count !==
+                  undefined && (
+                  <>
+                    {item.count}{' '}
+                    {item.count === 1
+                      ? 'persona'
+                      : 'personas'}{' '}
+                    ·{' '}
+                  </>
+                )}
 
-                <strong>
-                  {item.value}{' '}
-                  {item.value === 1
-                    ? 'persona'
-                    : 'personas'}{' '}
-                  ({percentage}%)
-                </strong>
-              </li>
-            )
-          },
+                {formatPercentage(
+                  item.value,
+                )}
+                %
+              </strong>
+            </li>
+          ),
         )}
       </ul>
     </div>
@@ -320,7 +328,7 @@ function AgeChart() {
             top: 30,
             right: 15,
             left: 0,
-            bottom: 25,
+            bottom: 35,
           }}
         >
           <CartesianGrid
@@ -337,12 +345,15 @@ function AgeChart() {
               fontFamily:
                 'Nunito, sans-serif',
               fontWeight: 800,
-              fontSize: 12,
+              fontSize: 11,
             }}
           />
 
           <YAxis
-            allowDecimals={false}
+            allowDecimals
+            tickFormatter={(value) =>
+              `${value}%`
+            }
             tick={{
               fill: '#24451e',
               fontFamily:
@@ -353,11 +364,7 @@ function AgeChart() {
 
           <Tooltip
             content={
-              <ResultsTooltip
-                total={
-                  surveyData.totalParticipants
-                }
-              />
+              <ResultsTooltip />
             }
             cursor={{
               fill:
@@ -393,7 +400,9 @@ function AgeChart() {
               dataKey="value"
               position="top"
               formatter={(value) =>
-                Number(value)
+                `${formatPercentage(
+                  Number(value),
+                )}%`
               }
               style={{
                 fill: '#24451e',
@@ -428,14 +437,13 @@ export function SurveyResults() {
     surveyData.addsHerbs.find(
       (item) =>
         item.name === 'Sí',
-    )?.value ?? 0
+    )?.count ?? 0
 
-  const familyLearningPercent =
-    Math.round(
-      (surveyData.learnedWithFamily /
-        surveyData.totalParticipants) *
-        100,
-    )
+  const familySharePercent =
+    surveyData.sharedWith.find(
+      (item) =>
+        item.name === 'Familia',
+    )?.value ?? 0
 
   return (
     <section
@@ -515,8 +523,8 @@ export function SurveyResults() {
             />
 
             <span className="survey__stat-note">
-              personas los agregan a
-              sus preparaciones
+              personas agregan remedios,
+              yuyos o hierbas
             </span>
           </motion.article>
 
@@ -549,14 +557,17 @@ export function SurveyResults() {
             </span>
 
             <strong className="survey__featured-value">
-              {familyLearningPercent}%
-              aprendió a preparar con
-              su familia
+              {formatPercentage(
+                familySharePercent,
+              )}
+              % comparte habitualmente
+              con su familia
             </strong>
 
             <span className="survey__stat-note">
-              ¡las familias son grandes
-              maestras!
+              La familia sigue siendo
+              protagonista de esta
+              tradición.
             </span>
           </motion.article>
         </div>
@@ -566,25 +577,35 @@ export function SurveyResults() {
           role="group"
           aria-label="Elegí qué gráfico ver"
         >
-          {tabs.map((currentTab) => (
-            <button
-              key={currentTab.id}
-              type="button"
-              className={`chip ${
-                tab === currentTab.id
-                  ? 'chip--active'
-                  : ''
-              }`}
-              aria-pressed={
-                tab === currentTab.id
-              }
-              onClick={() =>
-                setTab(currentTab.id)
-              }
-            >
-              {currentTab.label}
-            </button>
-          ))}
+          {tabs.map(
+            (currentTab) => (
+              <button
+                key={
+                  currentTab.id
+                }
+                type="button"
+                className={`chip ${
+                  tab ===
+                  currentTab.id
+                    ? 'chip--active'
+                    : ''
+                }`}
+                aria-pressed={
+                  tab ===
+                  currentTab.id
+                }
+                onClick={() =>
+                  setTab(
+                    currentTab.id,
+                  )
+                }
+              >
+                {
+                  currentTab.label
+                }
+              </button>
+            ),
+          )}
         </div>
 
         <div className="survey__chart card">
@@ -612,7 +633,8 @@ export function SurveyResults() {
                 'consumption' && (
                 <>
                   <h3 className="survey__chart-title">
-                    ¿Qué consumen más?
+                    ¿Qué preferís tomar
+                    habitualmente?
                   </h3>
 
                   <DonutChart
@@ -630,7 +652,9 @@ export function SurveyResults() {
                 'addsHerbs' && (
                 <>
                   <h3 className="survey__chart-title">
-                    ¿Le agregan yuyos?
+                    ¿Le agregás remedios
+                    (yuyos/hierbas) a tu
+                    bebida?
                   </h3>
 
                   <DonutChart
@@ -648,8 +672,9 @@ export function SurveyResults() {
                 'sharedWith' && (
                 <>
                   <h3 className="survey__chart-title">
-                    ¿Con quién lo
-                    comparten?
+                    ¿Con quién compartís
+                    habitualmente el mate
+                    o el tereré?
                   </h3>
 
                   <DonutChart
@@ -667,8 +692,8 @@ export function SurveyResults() {
                 'startingAge' && (
                 <>
                   <h3 className="survey__chart-title">
-                    ¿A qué edad empezaste
-                    a tomar?
+                    ¿A qué edad comenzaste
+                    a tomar mate o tereré?
                   </h3>
 
                   <AgeChart />
@@ -732,7 +757,9 @@ export function SurveyResults() {
                 !hasSurvey
               }
               tabIndex={
-                hasSurvey ? 0 : -1
+                hasSurvey
+                  ? 0
+                  : -1
               }
             >
               <ExternalLink

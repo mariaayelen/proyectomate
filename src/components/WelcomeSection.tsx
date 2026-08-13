@@ -29,12 +29,12 @@ const steps: ResearchStep[] = [
   },
   {
     title: 'Investigamos',
-    text: 'Buscamos información sobre yuyos, sabores e historias.',
+    text: 'Buscamos información sobre el origen del mate, la cultura guaraní y las tradiciones materas.',
     icon: Search,
   },
   {
     title: 'Compartimos',
-    text: 'Contamos todo lo que aprendimos con la comunidad.',
+    text: 'Realizamos una jornada matera donde cada estudiante compartió las costumbres de su familia.',
     icon: Users,
   },
 ]

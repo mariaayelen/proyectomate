@@ -2,30 +2,34 @@
  * ============================================================
  *  RESULTADOS DE LA ENCUESTA
  * ============================================================
- *  Todos los resultados están expresados en cantidades.
- *  Cada pregunta toma como base 54 personas encuestadas.
+ *  Encuesta realizada a 234 personas.
+ *
+ *  Los valores de los gráficos corresponden a los porcentajes
+ *  informados en los resultados originales de la encuesta.
  * ============================================================
  */
 
 export interface SurveyDatum {
   name: string
+
+  /** Porcentaje informado en la encuesta */
   value: number
+
+  /** Cantidad de respuestas, cuando el dato está disponible */
+  count?: number
 }
 
 export interface SurveyData {
   /** Cantidad total de personas encuestadas */
   totalParticipants: number
 
-  /** Personas que aprendieron a preparar con su familia */
-  learnedWithFamily: number
-
-  /** Qué consumen más */
+  /** Qué prefieren tomar habitualmente */
   consumption: SurveyDatum[]
 
-  /** Si agregan yuyos */
+  /** Si agregan remedios, yuyos o hierbas */
   addsHerbs: SurveyDatum[]
 
-  /** Con quién lo comparten */
+  /** Con quién comparten habitualmente */
   sharedWith: SurveyDatum[]
 
   /** Edad en la que comenzaron a tomar */
@@ -33,67 +37,79 @@ export interface SurveyData {
 }
 
 export const surveyData: SurveyData = {
-  totalParticipants: 54,
-
-  learnedWithFamily: 53,
+  totalParticipants: 234,
 
   consumption: [
     {
       name: 'Mate',
-      value: 27,
+      value: 57.3,
     },
     {
       name: 'Tereré',
-      value: 5,
+      value: 7.2,
     },
     {
-      name: 'Ambos',
-      value: 22,
+      name: 'Los dos por igual',
+      value: 35.5,
     },
   ],
 
   addsHerbs: [
     {
       name: 'Sí',
-      value: 26,
+      value: 67.5,
+      count: 158,
     },
     {
       name: 'No',
-      value: 28,
+      value: 33.3,
+      count: 78,
     },
   ],
 
   sharedWith: [
     {
       name: 'Familia',
-      value: 35,
+      value: 73.1,
     },
     {
       name: 'Amigos',
-      value: 15,
+      value: 6,
     },
     {
-      name: 'Solos/as',
-      value: 4,
+      name: 'Compañeros de trabajo/estudio',
+      value: 5.6,
+    },
+    {
+      name: 'Solo/a',
+      value: 10.3,
+    },
+    {
+      name: 'Otros',
+      value: 5,
     },
   ],
 
   startingAge: [
     {
-      name: '5 a 10 años',
-      value: 25,
+      name: 'Menos de 5 años',
+      value: 7.7,
     },
     {
-      name: '11 a 15 años',
-      value: 18,
+      name: 'Entre 5 y 10 años',
+      value: 23.9,
     },
     {
-      name: '20 a 25 años',
-      value: 7,
+      name: 'Entre 11 y 15 años',
+      value: 37.6,
     },
     {
-      name: 'Otras edades',
-      value: 4,
+      name: 'Más de 15 años',
+      value: 23.1,
+    },
+    {
+      name: 'No recuerdo',
+      value: 7.7,
     },
   ],
 }
