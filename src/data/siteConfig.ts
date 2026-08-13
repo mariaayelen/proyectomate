@@ -51,7 +51,7 @@ export const siteConfig: SiteConfig = {
   event: 'Feria de Ciencias',
   projectName: 'Mate y Tereré',
   tagline: 'Un sentimiento que nos une',
-  phrase: 'Proyecto realizado por los estudiantes de 6.º grado de la Escuela N.º 243 de Los Helechos, Misiones',
+  phrase: 'Proyecto realizado por los estudiantes de 6º grado de la Escuela Nº 243 de Los Helechos, Misiones',
   surveyUrl: 'https://docs.google.com/forms/d/e/1FAIpQLSdTLOmarz-iK9x-Z0Z8ohA_lOCTCaTAQXBTNeQDKbsbgEmomA/viewform',
   contact: {
     email: '',
